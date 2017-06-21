@@ -44,13 +44,13 @@ const routers = [
         path: piex+'/xygs',
         name: 'Xygs',
         component: (resolve) => require(['../views/Xygs.vue'], resolve),
-        // children:[
-        //     {
-        //         path: ':id',
-        //         name: 'SgsChild',
-        //         component: (resolve) => require(['../components/SgsChild.vue'], resolve)
-        //     }
-        // ]
+        children:[
+            {
+                path: ':name',
+                name: 'SgsChild',
+                component: (resolve) => require(['../components/MySgsChild.vue'], resolve)
+            }
+        ]
     },{
         path: piex+'/listTzgg/:id',
         name: 'ListTzgg',

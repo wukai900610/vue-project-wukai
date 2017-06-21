@@ -1,11 +1,15 @@
 <style scoped lang="scss">
     .xygsPage{
         .sgsNav{
-            display: block;
             overflow: auto;
-            margin-bottom: 5px;
+            position: fixed;
+            width: 100%;
+            top: 50px;
+            left: 0;
             padding: 5px;
+            background-color: #fff;
             border-bottom: 5px solid #f1f1f1;
+            z-index: 1;
             a{
                 float: left;
                 padding: 5px 0;
@@ -25,105 +29,38 @@
                 }
             }
         }
-        .sgsSearch{
-            padding: 0 5px;
-            display: flex;
-            input{
-                flex:1;
-                margin-right: 5px;
-                border:none;
-                height: 35px;
-                line-height: 35px;
-                text-indent: .5em;
-                border: 1px solid #ccc;
-                font-size: 14px;
-            }
-            .sgsBtn{
-                float: right;
-                box-sizing: border-box;
-                padding: 0 20px;
-                height: 35px;
-                line-height: 37px;
-                border: none;
-                background-color: #2795ee;
-                color: #fff;
-                font-size: 12px;
-            }
-        }
-        .sgsResult{
-            padding: 0 5px;
-            h5{
-                padding: 5px;
-            }
-        }
-        .list{
-            padding: 0 5px;
-            li{
-                overflow: auto;
-                border-bottom: 1px solid #ccc;
-                a{
-                    display: block;
-                    padding: 5px 0;
-                    h5{
-                        font-size: 16px;
-                        b{
-                            color: #42b983;
-                        }
-                    }
-                }
-            }
-        }
     }
 </style>
 
 <template>
 
 <div class="xygsPage">
-    <my-header title="信用公示"></my-header>
+    <my-header title="信用公示" isBackTop="true" :isFixed="true"></my-header>
 
     <span class="sgsNav">
         <router-link
             active-class="active"
-            :to="{ 'name': 'ListFgzcChild', params: { 'id': '109','childType':'bdList' }}">
+            :to="{ 'name': 'SgsChild', params: { 'name': 'frxk' }}">
             法人<br/>行政许可
         </router-link>
         <router-link
             active-class="active"
-            :to="{ 'name': 'ListFgzcChild', params: { 'id': '110','childType':'wdList' }}">
+            :to="{ 'name': 'SgsChild', params: { 'name': 'frcf' }}">
             法人<br/>行政处罚
         </router-link>
         <router-link
             active-class="active"
-            :to="{ 'name': 'ListFgzcChild', params: { 'id': '152','childType':'hnList' }}">
+            :to="{ 'name': 'SgsChild', params: { 'name': 'zzrxk' }}">
             自然人<br/>行政许可
         </router-link>
         <router-link
             active-class="active"
-            :to="{ 'name': 'ListFgzcChild', params: { 'id': '153','childType':'gjList' }}">
+            :to="{ 'name': 'SgsChild', params: { 'name': 'zzrcf' }}">
             自然人<br/>行政处罚
         </router-link>
     </span>
 
-    <div class="sgsSearch">
-        <input type="text" placeholder="请输入关键字">
-        <span class="sgsBtn">搜索</span>
-    </div>
-
-    <div class="sgsResult">
-        <h5>搜索结果</h5>
-
-        <!-- <mt-loadmore :top-method="loadListTop" :bottom-method="loadListBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-            <ul class="list">
-                <li v-for="item in storeAliasName.list">
-                    <router-link :to="{ 'name': 'Content', params: { id: item.id }}">
-                        <h5><b>[{{item.channel}}]</b>{{item.title}}</h5>
-                        <p class="date">{{item.releaseDate}}</p>
-                    </router-link>
-                </li>
-            </ul>
-        </mt-loadmore>
-        <mt-button type="default" v-if="showManualRefresh" @click="manualRefresh">刷新</mt-button> -->
-    </div>
+    <router-view></router-view>
 
 </div>
 
@@ -212,7 +149,7 @@ export default {
         }
     },
     mounted:function () {
-        this.loadListTop()
+        // this.loadListTop()
     },
     components:{
         MyHeader

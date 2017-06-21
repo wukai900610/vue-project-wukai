@@ -1,6 +1,13 @@
 <style scoped lang="scss">
     .listPage{
         .smallNav{
+            overflow: auto;
+            position: fixed;
+            width: 100%;
+            top: 50px;
+            left: 0;
+            background-color: #fff;
+            z-index: 1;
             a{
                 float: left;
                 width: 25%;
@@ -18,7 +25,7 @@
 <template>
 
 <div class="listPage">
-    <my-header title="法归政策" isBackTop="true"></my-header>
+    <my-header title="法归政策" isBackTop="true" :isFixed="true"></my-header>
 
     <span class="smallNav">
         <router-link

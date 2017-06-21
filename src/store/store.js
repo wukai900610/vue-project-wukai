@@ -69,7 +69,13 @@ export default {
             gjList:[],
             content:{}
         },
-        // list:[],
+        sgs:{
+            frxkList:[],
+            frcfList:[],
+            zzrxkList:[],
+            zzrcfList:[],
+            content:{}
+        },
         content:{}
     },
     getters: {
