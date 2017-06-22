@@ -49,32 +49,27 @@ export default {
         },
         jgmd:{
             list:[],
-            content:{}
         },
         bgmd:{
             list:[],
-            content:{}
         },
         xydt:{
             bdList:[],
             wdList:[],
             hnList:[],
             gjList:[],
-            content:{}
         },
         fgzc:{
             bdList:[],
             wdList:[],
             hnList:[],
             gjList:[],
-            content:{}
         },
-        sgs:{
-            frxkList:[],
-            frcfList:[],
-            zzrxkList:[],
-            zzrcfList:[],
-            content:{}
+        xygs:{
+            frxk:[],
+            frcf:[],
+            zzrxk:[],
+            zzrcf:[],
         },
         content:{}
     },
@@ -121,6 +116,16 @@ export default {
         getFgzcListMore(state,mParams){
             state[mParams.listType][mParams.childType]=state[mParams.listType][mParams.childType].concat(mParams.data)
         },
+        //双公示
+        getXygsList(state,mParams){
+            state.xygs[mParams.childType]=mParams.data
+        },
+        getXygsListMore(state,mParams){
+            let oldData=state.xygs[mParams.childType]
+            oldData.list=oldData.list.concat(mParams.data.list)
+            state.xygs[mParams.childType]=oldData
+        },
+
         getContent(state,data){
             state.content=data
         },
@@ -290,6 +295,41 @@ export default {
                                 data:response.data,
                                 listType:paramsObj.listType,
                                 childType:paramsObj.params.childType
+                            })
+                            resolve()
+                        }else{
+                            reject('status不为200')
+                        }
+                    }).catch((err) => {
+                        reject(err)
+                    })
+                })
+            }
+        },
+        loadXygsList({commit},paramsObj) {
+            if(paramsObj.isLoadMore){
+                return new Promise((resolve, reject) => {
+                    Util.ajax.get(Api.selectSgsInfo,paramsObj).then((response) => {
+                        if(response.status==200){
+                            commit('getXygsListMore',{
+                                data:response.data,
+                                childType:paramsObj.params.type
+                            })
+                            resolve()
+                        }else{
+                            reject('status不为200')
+                        }
+                    }).catch((err) => {
+                        reject(err)
+                    })
+                })
+            }else{
+                return new Promise((resolve, reject) => {
+                    Util.ajax.get(Api.selectSgsInfo,paramsObj).then((response) => {
+                        if(response.status==200){
+                            commit('getXygsList',{
+                                data:response.data,
+                                childType:paramsObj.params.type
                             })
                             resolve()
                         }else{

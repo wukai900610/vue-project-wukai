@@ -43,6 +43,7 @@ const routers = [
     },{
         path: piex+'/xygs',
         name: 'Xygs',
+        redirect: piex+'/xygs/frxk',
         component: (resolve) => require(['../views/Xygs.vue'], resolve),
         children:[
             {

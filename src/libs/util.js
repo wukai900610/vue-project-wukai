@@ -2,9 +2,7 @@ import axios from 'axios';
 // import env from '../../config/env';
 import env from '../../config/dev.env';
 
-let util = {
-
-};
+let util = {};
 util.title = function(title) {
     title = title ? title + ' - Home' : 'iView project';
     window.document.title = title;
@@ -19,8 +17,8 @@ const ajaxUrl = '';
 
 util.ajax = axios.create({
     baseURL: ajaxUrl,
-    timeout: 3000,
-    // headers: {'X-Custom-Header': 'foo'}
+    timeout: 2000,
+    // headers: {'wukai':'11'},
 });
 
 export default util;

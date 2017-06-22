@@ -52,12 +52,6 @@
                     a{
                         display: block;
                         padding: 5px 0;
-                        h5{
-                            font-size: 16px;
-                            b{
-                                color: #42b983;
-                            }
-                        }
                     }
                 }
             }
@@ -75,19 +69,43 @@
     </div>
 
     <div class="sgsSearch">
-        <input type="text" placeholder="请输入关键字">
-        <span class="sgsBtn">搜索</span>
+        <input type="text" v-model.trim.lazy="keyword" placeholder="请输入关键字">
+        <span class="sgsBtn" @click="loadListTop">搜索</span>
     </div>
 
     <div class="sgsResult">
-        <h5>搜索结果</h5>
+        <h5>
+            <span>搜索词：{{keyword}}</span>
+            <p>搜索结果</p>
+        </h5>
+
 
         <mt-loadmore :top-method="loadListTop" :bottom-method="loadListBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
             <ul class="list">
-                <li v-for="item in storeAliasName[currentListParams.childType]">
+                <li v-for="item in storeAliasName[$route.params.name].list">
                     <router-link :to="{ 'name': 'Content', params: { id: item.id }}">
-                        <h5><b>[{{item.channel}}]</b>{{item.title}}</h5>
-                        <p class="date">{{item.releaseDate}}</p>
+                        <table>
+                            <tr>
+                                <td>信用主体名称：</td>
+                                <td>{{item.xyztmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>决定书文号：</td>
+                                <td>{{item.wsh}}</td>
+                            </tr>
+                            <tr>
+                                <td>项目名称：</td>
+                                <td>{{item.xmmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>许可决定日期：</td>
+                                <td>{{item.xkrq}}</td>
+                            </tr>
+                            <tr>
+                                <td>许可机关：</td>
+                                <td>{{item.xzjg}}</td>
+                            </tr>
+                        </table>
                     </router-link>
                 </li>
             </ul>
@@ -110,96 +128,115 @@ export default {
     data() {
         return {
             allLoaded:false,
-            loading:true,
+            // loading:true,
+            loading:false,
+            keyword:'',
+            pageNo:1
         }
     },
     computed:{
-        currentListParams: function() {
-            let obj = {}
-            let arr=[{ 'id': '107',childType:'bdList' },{ 'id': '108',childType:'wdList' },{ 'id': '150',childType:'hnList' },{ 'id': '151',childType:'gjList' }]
-            arr.forEach(function(value, index, array) {
-                if(this.$route.params.id==value.id){
-                    obj = value
-                }
-            }.bind(this))
-            return obj
-        },
         storeAliasName: function(){
-            return this.$store.state.xydt
+            return this.$store.state.xygs
         }
     },
     methods: {
         loadListTop:function(){
-            setTimeout(function () {
-                this.$store.dispatch('loadXydtList',{
-                    'params':{
-                        'channelIds': this.currentListParams.id,
-                        'childType': this.currentListParams.childType
-                    },
-                    'listType':'xydt',
-                }).then(() => {
-                    this.loading=false
-                    Toast({
-                        message: '刷新成功',
-                        position: 'top',
-                        duration: 500
+            if(this.keyword){
+                this.loading=true
+                this.allLoaded=false
+                setTimeout(function () {
+                    this.$store.dispatch('loadXygsList',{
+                        'params':{
+                            'type': this.$route.params.name,
+                            'keyword': this.keyword,
+                            'pageNo':1
+                        }
+                    }).then(() => {
+                        this.loading=false
+                        Toast({
+                            message: '刷新成功',
+                            position: 'top',
+                            duration: 500
+                        })
+                        this.$refs.loadmore.onTopLoaded()
+                    }).catch(err => {
+                        this.loading=false
+                        Toast({
+                            message: '加载失败，手动刷新试试',
+                            position: 'top',
+                            duration: 500
+                        })
+                        this.$refs.loadmore.onTopLoaded()
                     })
-                    this.$refs.loadmore.onTopLoaded()
-                }).catch(err => {
-                    Toast({
-                        message: '加载失败，手动刷新试试',
-                        position: 'top',
-                        duration: 500
-                    })
-                    this.$refs.loadmore.onTopLoaded()
+                }.bind(this), 500)
+            }else{
+                Toast({
+                    message: '请输入查询关键词',
+                    position: 'middle',
+                    duration: 500
                 })
-            }.bind(this), 500)
+                this.$refs.loadmore.onTopLoaded()
+            }
         },
         loadListBottom:function(){
-            setTimeout(function () {
-                this.$store.dispatch('loadXydtList',{
-                    'params':{
-                        'channelIds': this.currentListParams.id,
-                        'first':this.storeAliasName[this.currentListParams.childType].length,
-                        'childType': this.currentListParams.childType
-                    },
-                    'listType':'xydt',
-                    'isLoadMore':true
-                }).then(() => {
-                    Toast({
-                        message: '加载成功',
-                        position: 'top',
-                        duration: 500
-                    })
+            let currentPage=++this.pageNo
+            // 判断是否加载到最后
+            if(this.keyword){
+                if(currentPage>this.storeAliasName[this.$route.params.name].totalPage){
                     this.$refs.loadmore.onBottomLoaded()
-                }).catch(err => {
+                    this.allLoaded=true
                     Toast({
-                        message: '加载失败',
-                        position: 'top',
-                        duration: 500
+                        message: '已经加载完啦',
+                        position: 'middle',
+                        duration: 1000
                     })
-                    this.$refs.loadmore.onBottomLoaded()
+                }else{
+                    this.allLoaded=false
+                    setTimeout(function () {
+                        this.$store.dispatch('loadXygsList',{
+                            'params':{
+                                'type': this.$route.params.name,
+                                'keyword': this.keyword,
+                                'pageNo':currentPage
+                            },
+                            'isLoadMore':true
+                        }).then(() => {
+                            Toast({
+                                message: '加载成功',
+                                position: 'top',
+                                duration: 500
+                            })
+                            this.$refs.loadmore.onBottomLoaded()
+                        }).catch(err => {
+                            Toast({
+                                message: '加载失败',
+                                position: 'top',
+                                duration: 500
+                            })
+                            this.$refs.loadmore.onBottomLoaded()
+                        })
+                    }.bind(this), 500)
+                }
+            }else{
+                Toast({
+                    message: '请输入查询关键词',
+                    position: 'middle',
+                    duration: 500
                 })
-            }.bind(this), 500)
-
+                this.$refs.loadmore.onBottomLoaded()
+            }
         },
     },
     watch: {
         // 如果路由有变化，会再次执行该方法
-        // '$route' (to, from) {
-        //     if(this.storeAliasName[this.currentListParams.childType].length==0){
-        //         this.loading=true
-        //         this.loadListTop()
-        //     }
-        // }
+        '$route' (to, from) {
+            this.keyword=''
+            this.allLoaded=false
+            this.pageNo=1
+        }
         // '$route':'loadListTop'
     },
     mounted:function () {
-        // if(this.storeAliasName[this.currentListParams.childType].length==0){
-        //     this.loadListTop()
-        // }else{
-        //     this.loading=false
-        // }
     },
     components:{
     }
