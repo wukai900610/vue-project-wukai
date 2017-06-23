@@ -69,7 +69,6 @@
             </li>
         </ul>
     </mt-loadmore>
-    <mt-button type="default" v-if="showManualRefresh" @click="manualRefresh">刷新</mt-button>
 </div>
 
 </template>
@@ -85,7 +84,6 @@ import MyHeader from '../components/Header.vue'
 export default {
     data() {
         return {
-            showManualRefresh:false,
             allLoaded:false
         }
     },
@@ -168,10 +166,6 @@ export default {
                 })
             }.bind(this), 500)
 
-        },
-        manualRefresh:function() {
-            this.showManualRefresh=false
-            this.loadListInit()
         }
     },
     mounted:function () {

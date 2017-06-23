@@ -39,7 +39,7 @@
         <div class="searchBox">
             <router-link :to="{ name: 'Home'}" class="back">返回</router-link>
             <i v-if="keyword.showClearKeyword" @click="clearKeywordFun"></i>
-            <input type="text" v-model.trim="keyword.word" @change="checkKeywordFun" placeholder="请输入关键词">
+            <input type="text" v-model.trim="keyword.word" placeholder="请输入关键词">
             <mt-button size="small" icon="search" @click.native="goSearchFun"></mt-button>
         </div>
 
@@ -99,7 +99,12 @@ export default {
                 })
             }
         }
-    }
+    },
+    watch: {
+        'keyword.word'(){
+            this.checkKeywordFun()
+        }
+    },
 }
 
 </script>

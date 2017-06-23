@@ -25,7 +25,7 @@
 <template>
 
 <div class="listPage">
-    <my-header title="法归政策" isBackTop="true" :isFixed="true"></my-header>
+    <my-header title="政策法规" isBackTop="true" :isFixed="true"></my-header>
 
     <span class="smallNav">
         <router-link
@@ -62,7 +62,6 @@ import MyHeader from '../components/Header.vue'
 export default {
     data() {
         return {
-            selected:'1',
             allLoaded:false
         }
     },

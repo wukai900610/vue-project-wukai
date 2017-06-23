@@ -51,14 +51,6 @@
                 font-size: 14px;
             }
         }
-        .annex{
-            margin-top: 10px;
-            padding-top: 5px;
-            border-top: 5px solid #333;
-            a{
-                color: #42b983;
-            }
-        }
     }
 </style>
 
@@ -83,16 +75,7 @@
         <h1 class="title">{{$store.state.content.title}}</h1>
         <p class="smallInfo">{{$store.state.content.releaseDate}}</p>
         <div class="articleBox">
-            <!-- <div v-html="content_filterTxtImg($store.state.content.txt)"></div> -->
             {{$store.state.content.txt}}
-        </div>
-        <div class="annex" v-if="content_filterAttachmentNames.length>0">
-            <p>附件：</p>
-            <ul>
-                <li v-for="(item,index) in content_filterAttachmentNames">
-                    <a :href="content_filterAttachmentPaths[index]" target="_blank">{{item}}</a>
-                </li>
-            </ul>
         </div>
     </div>
 </div>
@@ -117,8 +100,6 @@ export default {
         }
     },
     computed: mapGetters([
-      'content_filterAttachmentNames',
-      'content_filterAttachmentPaths'
     ]),
     methods: {
         loadContent:function(){
@@ -138,31 +119,11 @@ export default {
                     })
                 })
             }.bind(this), 500)
-        },
-        // 图片过滤显示
-        content_filterTxtImg:function () {
-            let imgArr=this.$store.state.content.txt.split('_img_end_')
-
-            for(let i=0;i<imgArr.length;i++){
-                let nd = imgArr[i].match(/_img_start_(\S*)/)
-                if(nd!=null){
-                    // console.log(nd);
-                    if(nd.length>0){
-                        console.log(nd[1])
-                    }
-                }
-            }
-            // return d;
         }
     },
     mounted:function () {
         window.scrollTo(0, 0)
         this.loadContent()
-    },
-    beforeDestroy:function () {
-        this.$store.state.content={
-            title:'文章标题'
-        }
     },
     components:{
         MyHeader

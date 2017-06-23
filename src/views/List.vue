@@ -1,6 +1,16 @@
 <style scoped lang="scss">
     .listPage{
         margin-top: 50px;
+        .loadListBox{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .list{
             padding: 0 5px;
             li{
@@ -26,6 +36,10 @@
 <div class="listPage">
     <my-header :title="currentListParams.name" :isFixed="true"></my-header>
 
+    <div class="loadListBox" v-if="loading">
+        <mt-spinner type="fading-circle" color="#26a2ff"></mt-spinner>
+    </div>
+
     <mt-loadmore :top-method="loadListTop" :bottom-method="loadListBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <ul class="list">
             <li v-for="item in storeAliasName.list">
@@ -36,14 +50,13 @@
             </li>
         </ul>
     </mt-loadmore>
-    <mt-button type="default" v-if="showManualRefresh" @click="manualRefresh">刷新</mt-button>
 </div>
 
 </template>
 
 <script>
 import {
-    Header,Popup,Toast
+    Toast
 }
 from 'mint-ui'
 
@@ -52,8 +65,8 @@ import MyHeader from '../components/Header.vue'
 export default {
     data() {
         return {
-            showManualRefresh:false,
-            allLoaded:false
+            allLoaded:false,
+            loading:true
         }
     },
     computed:{
@@ -79,6 +92,7 @@ export default {
                     'params':{'channelIds': this.$route.params.id},
                     'listType':this.currentListParams.listTypeName
                 }).then(() => {
+                    this.loading=false
                     Toast({
                         message: '刷新成功',
                         position: 'top',
@@ -86,6 +100,7 @@ export default {
                     })
                     this.$refs.loadmore.onTopLoaded()
                 }).catch(err => {
+                    this.loading=false
                     Toast({
                         message: '加载失败，手动刷新试试',
                         position: 'top',
@@ -120,16 +135,13 @@ export default {
                     this.$refs.loadmore.onBottomLoaded()
                 })
             }.bind(this), 500)
-
-        },
-        manualRefresh:function() {
-            this.showManualRefresh=false
-            // this.loadListInit()
         }
     },
     mounted:function () {
         if(this.storeAliasName.list.length==0){
             this.loadListTop()
+        }else{
+            this.loading=false
         }
     },
     components:{

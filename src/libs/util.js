@@ -4,7 +4,7 @@ import env from '../../config/dev.env';
 
 let util = {};
 util.title = function(title) {
-    title = title ? title + ' - Home' : 'iView project';
+    title = title ? title + ' - 信用郑州' : '信用郑州';
     window.document.title = title;
 };
 

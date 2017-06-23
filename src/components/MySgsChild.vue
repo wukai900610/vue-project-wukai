@@ -81,9 +81,9 @@
 
 
         <mt-loadmore :top-method="loadListTop" :bottom-method="loadListBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-            <ul class="list">
+            <ul class="list" v-if="$route.params.name=='frxk'">
                 <li v-for="item in storeAliasName[$route.params.name].list">
-                    <router-link :to="{ 'name': 'Content', params: { id: item.id }}">
+                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
                         <table>
                             <tr>
                                 <td>信用主体名称：</td>
@@ -103,6 +103,90 @@
                             </tr>
                             <tr>
                                 <td>许可机关：</td>
+                                <td>{{item.xzjg}}</td>
+                            </tr>
+                        </table>
+                    </router-link>
+                </li>
+            </ul>
+            <ul class="list" v-if="$route.params.name=='frcf'">
+                <li v-for="item in storeAliasName[$route.params.name].list">
+                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
+                        <table>
+                            <tr>
+                                <td>信用主体名称：</td>
+                                <td>{{item.xyztmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>决定书文号：</td>
+                                <td>{{item.wsh}}</td>
+                            </tr>
+                            <tr>
+                                <td>项目名称：</td>
+                                <td>{{item.xmmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>处罚决定日期：</td>
+                                <td>{{item.cfrq}}</td>
+                            </tr>
+                            <tr>
+                                <td>处罚机关：</td>
+                                <td>{{item.xzjg}}</td>
+                            </tr>
+                        </table>
+                    </router-link>
+                </li>
+            </ul>
+            <ul class="list" v-if="$route.params.name=='zzrxk'">
+                <li v-for="item in storeAliasName[$route.params.name].list">
+                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
+                        <table>
+                            <tr>
+                                <td>信用主体名称：</td>
+                                <td>{{item.xyztmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>决定书文号：</td>
+                                <td>{{item.wsh}}</td>
+                            </tr>
+                            <tr>
+                                <td>名称：</td>
+                                <td>{{item.xmmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>许可决定日期：</td>
+                                <td>{{item.xkjzrq}}</td>
+                            </tr>
+                            <tr>
+                                <td>许可机关：</td>
+                                <td>{{item.xzjg}}</td>
+                            </tr>
+                        </table>
+                    </router-link>
+                </li>
+            </ul>
+            <ul class="list" v-if="$route.params.name=='zzrcf'">
+                <li v-for="item in storeAliasName[$route.params.name].list">
+                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
+                        <table>
+                            <tr>
+                                <td>信用主体名称：</td>
+                                <td>{{item.xyztmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>决定书文号：</td>
+                                <td>{{item.wsh}}</td>
+                            </tr>
+                            <tr>
+                                <td>名称：</td>
+                                <td>{{item.xmmc}}</td>
+                            </tr>
+                            <tr>
+                                <td>处罚决定日期：</td>
+                                <td>{{item.cfrq}}</td>
+                            </tr>
+                            <tr>
+                                <td>处罚机关：</td>
                                 <td>{{item.xzjg}}</td>
                             </tr>
                         </table>

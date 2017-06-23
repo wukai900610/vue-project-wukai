@@ -1,4 +1,5 @@
-const piex='/dist'
+// const piex='/dist'
+const piex=''
 const routers = [
     {
         path: piex+'/',
@@ -52,6 +53,10 @@ const routers = [
                 component: (resolve) => require(['../components/MySgsChild.vue'], resolve)
             }
         ]
+    },{
+        path: piex+'/xygsContent/:id',
+        name: 'XygsContent',
+        component: (resolve) => require(['../views/XygsContent.vue'], resolve)
     },{
         path: piex+'/listTzgg/:id',
         name: 'ListTzgg',

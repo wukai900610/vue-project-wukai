@@ -88,35 +88,47 @@ export default {
     methods:{
         loadBottom:function () {
             let keyword = Gfun.getlocalStorage('keyword')
-            setTimeout(function () {
-                this.$store.dispatch('loadSearchList',{
-                        'params':{
-                            'q': keyword.word,
-                            'first':this.$store.state.search.list.length
-                        },
-                        'isLoadMore':true
-                    }).then(() => {
-                    Toast({
-                        message: '加载成功',
-                        position: 'top',
-                        duration: 500
+            if(keyword){
+                setTimeout(function () {
+                    this.$store.dispatch('loadSearchList',{
+                            'params':{
+                                'q': keyword.word,
+                                'first':this.$store.state.search.list.length
+                            },
+                            'isLoadMore':true
+                        }).then(() => {
+                        Toast({
+                            message: '加载成功',
+                            position: 'top',
+                            duration: 500
+                        })
+                        this.$refs.loadmore.onBottomLoaded()
+                    }).catch(err => {
+                        Toast({
+                            message: '加载失败',
+                            position: 'top',
+                            duration: 500
+                        })
+                        this.$refs.loadmore.onBottomLoaded()
                     })
-                    this.$refs.loadmore.onBottomLoaded()
-                }).catch(err => {
-                    Toast({
-                        message: '加载失败',
-                        position: 'top',
-                        duration: 500
-                    })
-                    this.$refs.loadmore.onBottomLoaded()
-                })
-            }.bind(this), 500)
+                }.bind(this), 500)
 
-            //判断数据是否全部加载完
-            if(!this.$store.state.search.allLoaded){
-                this.allLoaded=true
+                //判断数据是否全部加载完
+                if(!this.$store.state.search.allLoaded){
+                    this.allLoaded=true
+                }
+            }else{
+                Toast({
+                    message: '请输入关键词',
+                    position: 'middle',
+                    duration: 500
+                })
+                this.$refs.loadmore.onBottomLoaded()
             }
         }
+    },
+    beforeDestroy:function () {
+        Gfun.setlocalStorage('keyword','')
     },
     components:{
         MySearch

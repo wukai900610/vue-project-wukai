@@ -200,7 +200,7 @@
 
     <div class="mainList">
         <h3>
-            <router-link :to="{ 'name': 'List', params: { id: 114,name:'最新动态' }}">
+            <router-link :to="{ 'name': 'ListTzgg', params: { id: 114,name:'最新动态' }}">
                 more >>
             </router-link>
             最新动态
@@ -220,7 +220,7 @@
 </template>
 
 <script>
-
+import Util from '../libs/util'
 export default {
     data() {
         return {
@@ -245,6 +245,7 @@ export default {
     },
     mounted:function () {
         this.loadHomeTzgg()
+        Util.title()
     },
     components:{
     }
