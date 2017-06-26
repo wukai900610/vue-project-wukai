@@ -28,7 +28,23 @@
         }
         input,button{
             outline: none;
+            -webkit-appearance:none;
+            appearance:none;
         }
+
+        // :-webkit-input-placeholder {
+        //     line-height: 1;
+        // }
+        // :-moz-placeholder {/* Firefox 18- */
+        //     line-height: 1;
+        // }
+        // ::-moz-placeholder{/* Firefox 19+ */
+        //     line-height: 1;
+        // }
+        // :-ms-input-placeholder {
+        //     line-height: 1;
+        // }
+
         a{
             position: relative;
             display: inline-block;

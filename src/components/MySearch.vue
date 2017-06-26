@@ -1,48 +1,45 @@
 <style scoped lang="scss">
-    .searchPage{
-        .searchBox{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding: 10px;
-            background-color: #2795ee;
-            .back{
-                margin-right: 10px;
-                color: #fff;
-            }
-            i{
-                position: absolute;
-                top: 50%;
-                right: 65px;
-                padding: 10px;
-                transform: translate(0,-50%);
-                background: url('../assets/searchIco.png') center -84px no-repeat;
-                background-size: 20px;
-            }
-            input{
-                flex:1;
-                margin-right: 10px;
-                border:none;
-                height: 35px;
-                text-indent: .5em;
-                font-size: 14px;
-            }
+    .searchBox{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width:100%;
+        padding: 10px;
+        background-color: #2795ee;
+        z-index: 1;
+        .back{
+            margin-right: 10px;
+            color: #fff;
         }
-
+        i{
+            position: absolute;
+            top: 50%;
+            right: 65px;
+            padding: 10px;
+            transform: translate(0,-50%);
+            background: url('../assets/searchIco.png') center -84px no-repeat;
+            background-size: 20px;
+        }
+        input{
+            flex:1;
+            margin-right: 10px;
+            border:none;
+            height: 35px;
+            text-indent: .5em;
+            font-size: 14px;
+        }
     }
 </style>
 
 <template>
-    <!-- <mt-search v-model="value" :result.sync="result"></mt-search> -->
-    <div class="searchPage">
-        <div class="searchBox">
-            <router-link :to="{ name: 'Home'}" class="back">返回</router-link>
-            <i v-if="keyword.showClearKeyword" @click="clearKeywordFun"></i>
-            <input type="text" v-model.trim="keyword.word" placeholder="请输入关键词">
-            <mt-button size="small" icon="search" @click.native="goSearchFun"></mt-button>
-        </div>
-
+    <div class="searchBox">
+        <router-link :to="{ name: 'Home'}" class="back">返回</router-link>
+        <i v-if="keyword.showClearKeyword" @click="clearKeywordFun"></i>
+        <input type="text" v-model.trim="keyword.word" placeholder="请输入关键词">
+        <mt-button size="small" icon="search" @click.native="goSearchFun"></mt-button>
     </div>
 
 </template>
@@ -59,7 +56,7 @@ export default {
     data() {
         return {
             keyword:{
-                word:'',
+                word:Gfun.getlocalStorage('keyword').word,
                 showClearKeyword:false
             }
         }

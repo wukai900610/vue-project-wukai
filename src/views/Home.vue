@@ -1,5 +1,6 @@
 <style lang="scss">
     .home{
+        padding-bottom: 50px;
         .search{
             padding: 10px;
             background: url('../assets/searchIco.png') no-repeat;
@@ -215,12 +216,17 @@
             </li>
         </ul>
     </div>
+
+    <index-tabBar></index-tabBar>
 </div>
 
 </template>
 
 <script>
 import Util from '../libs/util'
+
+import IndexTabBar from '../components/IndexTabBar.vue'
+
 export default {
     data() {
         return {
@@ -248,6 +254,7 @@ export default {
         Util.title()
     },
     components:{
+        IndexTabBar
     }
 }
 

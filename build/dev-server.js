@@ -27,7 +27,7 @@ routers.get('/cart',function (req, res) {
         err:0
     })
 })
-app.use('/api', routers)
+// app.use('/api', routers)
 
 
 

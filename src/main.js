@@ -20,11 +20,17 @@ const router = new VueRouter({
     mode: 'history',
     // history: true,
     saveScrollPosition: true,
-    // transitionOnLoad: true,
+    transitionOnLoad: true,
     routes: RouterConfig
 })
 
 router.beforeEach((to, from, next) => {
+    console.log(to,from)
+    // 判断在搜索路由中退回首页清除搜索关键词
+    if(to.name=='Home'){
+        Gfun.setlocalStorage('keyword','')
+    }
+
     if(to.name=='Content'){
         // console.log(window.scrollY);
         // Gfun.setlocalStorage('homeScrollPosition',{y:window.scrollY})

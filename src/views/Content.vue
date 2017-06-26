@@ -156,7 +156,7 @@ export default {
         }
     },
     mounted:function () {
-        window.scrollTo(0, 0)
+        // window.scrollTo(0, 0)
         this.loadContent()
     },
     beforeDestroy:function () {

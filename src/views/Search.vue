@@ -1,5 +1,5 @@
 <style lang="scss">
-.search {
+.searchPage {
     /*display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,8 @@
     top: 0;
     width: 100%;
     height: 100%;*/
-    ul {
+    padding-top: 55px;
+    .list {
         overflow: auto;
         padding: 10px;
         border-top: 1px solid #f7f7f7;
@@ -50,9 +51,8 @@
 
 <template>
 
-<div class="search">
+<div class="searchPage">
     <my-search></my-search>
-
 
     <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" bottomPullText="上拉加载" bottomDropText="释放加载">
         <ul class="list">
@@ -126,9 +126,6 @@ export default {
                 this.$refs.loadmore.onBottomLoaded()
             }
         }
-    },
-    beforeDestroy:function () {
-        Gfun.setlocalStorage('keyword','')
     },
     components:{
         MySearch

@@ -22,7 +22,6 @@
                 margin-right: 5px;
                 border:none;
                 height: 35px;
-                line-height: 35px;
                 text-indent: .5em;
                 border: 1px solid #ccc;
                 font-size: 14px;

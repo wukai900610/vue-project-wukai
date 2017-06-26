@@ -94,27 +94,27 @@ export default {
             state.tzgg.banner=data
         },
         getHomeTzgg(state,data){
-            state.home.tzgg=data
+            state.home.tzgg=data.data
         },
         getList(state,mParams){
-            state[mParams.listType].list=mParams.data
+            state[mParams.listType].list=mParams.data.data
         },
         getListMore(state,mParams){
-            state[mParams.listType].list=state[mParams.listType].list.concat(mParams.data)
+            state[mParams.listType].list=state[mParams.listType].list.concat(mParams.data.data)
         },
         //信用动态
         getXydtList(state,mParams){
-            state[mParams.listType][mParams.childType]=mParams.data
+            state[mParams.listType][mParams.childType]=mParams.data.data
         },
         getXydtListMore(state,mParams){
-            state[mParams.listType][mParams.childType]=state[mParams.listType][mParams.childType].concat(mParams.data)
+            state[mParams.listType][mParams.childType]=state[mParams.listType][mParams.childType].concat(mParams.data.data)
         },
         //法归政策
         getFgzcList(state,mParams){
-            state[mParams.listType][mParams.childType]=mParams.data
+            state[mParams.listType][mParams.childType]=mParams.data.data
         },
         getFgzcListMore(state,mParams){
-            state[mParams.listType][mParams.childType]=state[mParams.listType][mParams.childType].concat(mParams.data)
+            state[mParams.listType][mParams.childType]=state[mParams.listType][mParams.childType].concat(mParams.data.data)
         },
         //双公示
         getXygsList(state,mParams){
@@ -325,7 +325,7 @@ export default {
                 })
             }else{
                 return new Promise((resolve, reject) => {
-                    Util.ajax.get(Api.selectSgsInfo,paramsObj).then((response) => {
+                    Util.ajax(Api.selectSgsInfo,paramsObj).then((response) => {
                         if(response.status==200){
                             commit('getXygsList',{
                                 data:response.data,
