@@ -1,7 +1,7 @@
 <style scoped lang="scss">
     .listBox{
         position: absolute;
-        top: 90px;
+        top: 50px;
         bottom: 0;
         width: 100%;
         .loadListBox{
@@ -38,20 +38,7 @@
 <template>
 
 <div class="listBox">
-    <div class="loadListBox" v-if="loading">
-        <mt-spinner type="fading-circle" color="#26a2ff"></mt-spinner>
-    </div>
-
-    <mt-loadmore :top-method="loadListTop" :bottom-method="loadListBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-        <ul class="list">
-            <li v-for="item in storeAliasName[currentListParams.childType]">
-                <router-link :to="{ 'name': 'Content', params: { 'id': item.id }}">
-                    <h5><b>[{{item.channel}}]</b>{{item.title}}</h5>
-                    <p class="date">{{item.releaseDate}}</p>
-                </router-link>
-            </li>
-        </ul>
-    </mt-loadmore>
+    {{$route.params.type}}
 </div>
 
 </template>
@@ -72,29 +59,29 @@ export default {
         }
     },
     computed:{
-        currentListParams: function() {
-            let obj = {}
-            let arr=[{ 'id': '107',childType:'bdList' },{ 'id': '108',childType:'wdList' },{ 'id': '150',childType:'hnList' },{ 'id': '151',childType:'gjList' }]
-            arr.forEach(function(value, index, array) {
-                if(this.$route.params.id==value.id){
-                    obj = value
-                }
-            }.bind(this))
-            return obj
-        },
-        storeAliasName: function(){
-            return this.$store.state.xydt
-        }
+        // currentListParams: function() {
+        //     let obj = {}
+        //     let arr=[{ 'id': '109',childType:'bdList' },{ 'id': '110',childType:'wdList' },{ 'id': '152',childType:'hnList' },{ 'id': '153',childType:'gjList' }]
+        //     arr.forEach(function(value, index, array) {
+        //         if(this.$route.params.id==value.id){
+        //             obj = value
+        //         }
+        //     }.bind(this))
+        //     return obj
+        // },
+        // storeAliasName: function(){
+        //     return this.$store.state.fgzc
+        // }
     },
     methods: {
         loadListTop:function(){
             setTimeout(function () {
-                this.$store.dispatch('loadXydtList',{
+                this.$store.dispatch('loadFgzcList',{
                     'params':{
                         'channelIds': this.currentListParams.id,
                         'childType': this.currentListParams.childType
                     },
-                    'listType':'xydt',
+                    'listType':'fgzc',
                 }).then(() => {
                     this.loading=false
                     Toast({
@@ -115,13 +102,13 @@ export default {
         },
         loadListBottom:function(){
             setTimeout(function () {
-                this.$store.dispatch('loadXydtList',{
+                this.$store.dispatch('loadFgzcList',{
                     'params':{
                         'channelIds': this.currentListParams.id,
                         'first':this.storeAliasName[this.currentListParams.childType].length,
                         'childType': this.currentListParams.childType
                     },
-                    'listType':'xydt',
+                    'listType':'fgzc',
                     'isLoadMore':true
                 }).then(() => {
                     Toast({
@@ -145,19 +132,14 @@ export default {
     watch: {
         // 如果路由有变化，会再次执行该方法
         '$route' (to, from) {
-            if(this.storeAliasName[this.currentListParams.childType].length==0){
-                this.loading=true
-                this.loadListTop()
-            }
+            // if(this.storeAliasName[this.currentListParams.childType].length==0){
+            //     this.loading=true
+            //     this.loadListTop()
+            // }
         }
         // '$route':'loadListTop'
     },
     mounted:function () {
-        if(this.storeAliasName[this.currentListParams.childType].length==0){
-            this.loadListTop()
-        }else{
-            this.loading=false
-        }
     },
     components:{
     }

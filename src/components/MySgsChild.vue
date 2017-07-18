@@ -82,7 +82,7 @@
         <mt-loadmore :top-method="loadListTop" :bottom-method="loadListBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
             <ul class="list" v-if="$route.params.name=='frxk'">
                 <li v-for="item in storeAliasName[$route.params.name].list">
-                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
+                    <router-link :to="{ 'name': 'XygsContent', params: { 'id': item.id, 'type':$route.params.name }}">
                         <table>
                             <tr>
                                 <td>信用主体名称：</td>
@@ -110,7 +110,7 @@
             </ul>
             <ul class="list" v-if="$route.params.name=='frcf'">
                 <li v-for="item in storeAliasName[$route.params.name].list">
-                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
+                    <router-link :to="{ 'name': 'XygsContent', params: { 'id': item.id, 'type':$route.params.name }}">
                         <table>
                             <tr>
                                 <td>信用主体名称：</td>
@@ -138,7 +138,7 @@
             </ul>
             <ul class="list" v-if="$route.params.name=='zzrxk'">
                 <li v-for="item in storeAliasName[$route.params.name].list">
-                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
+                    <router-link :to="{ 'name': 'XygsContent', params: { 'id': item.id, 'type':$route.params.name }}">
                         <table>
                             <tr>
                                 <td>信用主体名称：</td>
@@ -166,7 +166,7 @@
             </ul>
             <ul class="list" v-if="$route.params.name=='zzrcf'">
                 <li v-for="item in storeAliasName[$route.params.name].list">
-                    <router-link :to="{ 'name': 'XygsContent', params: { id: item.id }}">
+                    <router-link :to="{ 'name': 'XygsContent', params: { 'id': item.id, 'type':$route.params.name }}">
                         <table>
                             <tr>
                                 <td>信用主体名称：</td>

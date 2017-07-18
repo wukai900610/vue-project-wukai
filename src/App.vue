@@ -53,16 +53,17 @@
             color: #2c3e50;
             &:after{
                 content: " ";
-                opacity: 0;
+                // opacity: 0;
                 top: 0;
                 right: 0;
                 bottom: 0;
                 left: 0;
                 position: absolute;
-                background-color: #000;
+                background-color: rgba(0, 0, 0, 0);
             }
             &:active:after{
-                opacity: .1;
+                // opacity: .1;
+                background-color: rgba(0, 0, 0, .1);
             }
         }
         .myLoad{

@@ -25,7 +25,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    console.log(to,from)
+    // console.log(to,from)
     // 判断在搜索路由中退回首页清除搜索关键词
     if(to.name=='Home'){
         Gfun.setlocalStorage('keyword','')

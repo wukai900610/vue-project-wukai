@@ -4,27 +4,54 @@
     }
     .indexTabPage{
         .muder{
-            padding-bottom: 10px;
-            background: url('../assets/infoSearchIco.png') center 0 no-repeat;
-            div{
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            // padding-bottom: 10px;
+            // background: url('../assets/infoSearchIco.png') center 0 no-repeat;
+            background-color: rgba(0, 0, 0, .5);
+            .infoContent{
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%,-50%);
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 width: 350px;
                 // height: 150px;
-                background-color: #fff;
-                a{
+                li{
                     flex:1;
                     padding-bottom: 10px;
                     height: 100%;
                     text-align: center;
-                    &:before{
-                        content: ' ';
+                    background-color: #fff;
+                    a{
                         display: block;
-                        padding: 40px 0;
                         width: 100%;
+                        &:before{
+                            content: ' ';
+                            display: block;
+                            padding: 40px 0;
+                            width: 100%;
+                        }
                     }
+
                 }
+            }
+            .close{
+                position: fixed;
+                left: 50%;
+                bottom: 0;
+                width: 60px;
+                height: 60px;
+                transform: translate(-50%,-27px);
+                background-color: #fff;
             }
         }
         .tabBar{
@@ -74,25 +101,27 @@
 
 <template>
 <div class="indexTabPage">
-    <mt-popup
-        v-model="popupVisible"
-        popup-transition="popup-fade">
-        <div class="muder">
-            <div>
-                <router-link :to="{ 'name': 'Home'}">
-                    法人信用<br>信息查询
-                </router-link>
-                <router-link :to="{ 'name': 'Home'}">
-                    自然人信用<br>信息查询
-                </router-link>
-            </div>
-
+    <transition name="fade">
+        <div class="muder" v-if="muder">
+            <ul class="infoContent">
+                <li>
+                    <router-link :to="{'name':'ListFrzzrChild', 'params': { type: 'fr' }}">
+                        法人信用<br>信息查询
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{'name':'ListFrzzrChild', 'params': { type: 'zzr' }}">
+                        自然人信用<br>信息查询
+                    </router-link>
+                </li>
+            </ul>
+            <span class="close" @click="muder=false"></span>
         </div>
-    </mt-popup>
+    </transition>
     <div class="tabBar">
         <ul class="">
             <li></li>
-            <li class="diff" @click="showMuder"><a href="#">查询</a></li>
+            <li class="diff" @click="muder=true"><a href="#">查询</a></li>
             <li></li>
         </ul>
     </div>
@@ -106,14 +135,13 @@
 export default {
     data() {
         return {
-            popupVisible:false
+            muder:false
         }
     },
     methods: {
-        showMuder:function(){
-            this.popupVisible=true
-            console.log(111);
-        }
+        // showMuder:function(){
+        //     this.muder=true
+        // }
     },
     mounted:function () {
     }

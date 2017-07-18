@@ -25,7 +25,7 @@
 <template>
 
 <div class="listPage">
-    <my-header title="信用动态" isBackTop="true" :isFixed="true"></my-header>
+    <my-header title="信用动态" :isBackTop="true" :isFixed="true"></my-header>
 
     <span class="smallNav">
         <router-link

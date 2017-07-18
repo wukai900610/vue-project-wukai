@@ -83,8 +83,7 @@
         <h1 class="title">{{$store.state.content.title}}</h1>
         <p class="smallInfo">{{$store.state.content.releaseDate}}</p>
         <div class="articleBox">
-            <!-- <div v-html="content_filterTxtImg($store.state.content.txt)"></div> -->
-            {{$store.state.content.txt}}
+            <div v-html="$store.state.content.txt"></div>
         </div>
         <div class="annex" v-if="content_filterAttachmentNames.length>0">
             <p>附件：</p>
@@ -142,16 +141,6 @@ export default {
         // 图片过滤显示
         content_filterTxtImg:function () {
             let imgArr=this.$store.state.content.txt.split('_img_end_')
-
-            for(let i=0;i<imgArr.length;i++){
-                let nd = imgArr[i].match(/_img_start_(\S*)/)
-                if(nd!=null){
-                    // console.log(nd);
-                    if(nd.length>0){
-                        console.log(nd[1])
-                    }
-                }
-            }
             // return d;
         }
     },

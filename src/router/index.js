@@ -5,6 +5,18 @@ const routers = [
         path: piex+'/',
         name: 'Home',
         component: (resolve) => require(['../views/Home.vue'], resolve)
+    },{
+        path: piex+'/listFrzzr',
+        name: 'ListFrzzr',
+        redirect: piex+'/ListFrzzr/fr',
+        component: (resolve) => require(['../views/ListFrzzr.vue'], resolve),
+        children:[
+            {
+                path: ':type',
+                name: 'ListFrzzrChild',
+                component: (resolve) => require(['../components/ListFrzzrChild.vue'], resolve)
+            }
+        ]
     },
     {
         path: piex+'/search',
@@ -57,7 +69,8 @@ const routers = [
         path: piex+'/xygsContent/:id',
         name: 'XygsContent',
         component: (resolve) => require(['../views/XygsContent.vue'], resolve)
-    },{
+    },
+    {
         path: piex+'/listTzgg/:id',
         name: 'ListTzgg',
         component: (resolve) => require(['../views/ListTzgg.vue'], resolve)

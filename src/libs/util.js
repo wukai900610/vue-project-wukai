@@ -1,6 +1,4 @@
 import axios from 'axios';
-// import env from '../../config/env';
-import env from '../../config/dev.env';
 
 let util = {};
 util.title = function(title) {
@@ -8,11 +6,6 @@ util.title = function(title) {
     window.document.title = title;
 };
 
-// const ajaxUrl = env.NODE_ENV === '"development"' ?
-//     '' :
-//     env.NODE_ENV === '"production"' ?
-//     'https://online.url.com' :
-//     'https://debug.url.com';
 const ajaxUrl = '';
 
 util.ajax = axios.create({

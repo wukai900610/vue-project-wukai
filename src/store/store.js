@@ -70,6 +70,7 @@ export default {
             frcf:[],
             zzrxk:[],
             zzrcf:[],
+            content:{}
         },
         content:{}
     },
@@ -91,7 +92,7 @@ export default {
     },
     mutations: {
         getBanner(state,data){
-            state.tzgg.banner=data
+            state.tzgg.banner=data.data
         },
         getHomeTzgg(state,data){
             state.home.tzgg=data.data
@@ -124,6 +125,14 @@ export default {
             let oldData=state.xygs[mParams.childType]
             oldData.list=oldData.list.concat(mParams.data.list)
             state.xygs[mParams.childType]=oldData
+        },
+        getXygsContent(state,mParams){
+            let data=state.xygs[mParams.type]
+            for(var i in data.list){
+                if(data.list[i].id==mParams.params.id){
+                    state.xygs.content=data.list[i]
+                }
+            }
         },
 
         getContent(state,data){
@@ -306,6 +315,20 @@ export default {
                 })
             }
         },
+        loadContent({commit},paramsObj) {
+            return new Promise((resolve, reject) => {
+                Util.ajax.get(Api.content,paramsObj).then((response) => {
+                    if(response.status==200){
+                        commit('getContent',response.data)
+                        resolve()
+                    }else{
+                        reject('status不为200')
+                    }
+                }).catch((err) => {
+                    reject(err)
+                })
+            })
+        },
         loadXygsList({commit},paramsObj) {
             if(paramsObj.isLoadMore){
                 return new Promise((resolve, reject) => {
@@ -341,18 +364,10 @@ export default {
                 })
             }
         },
-        loadContent({commit},paramsObj) {
+        loadXygsContent({commit},paramsObj) {
             return new Promise((resolve, reject) => {
-                Util.ajax.get(Api.content,paramsObj).then((response) => {
-                    if(response.status==200){
-                        commit('getContent',response.data)
-                        resolve()
-                    }else{
-                        reject('status不为200')
-                    }
-                }).catch((err) => {
-                    reject(err)
-                })
+                commit('getXygsContent',paramsObj)
+                resolve()
             })
         },
     }

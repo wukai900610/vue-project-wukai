@@ -34,7 +34,7 @@
 <template>
 
 <div class="xygsPage">
-    <my-header title="信用公示" isBackTop="true" :isFixed="true"></my-header>
+    <my-header title="信用公示" :isBackTop="true" :isFixed="true"></my-header>
 
     <span class="sgsNav">
         <router-link
