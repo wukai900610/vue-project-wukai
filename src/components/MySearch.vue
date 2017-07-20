@@ -102,6 +102,9 @@ export default {
             this.checkKeywordFun()
         }
     },
+    mounted:function () {
+        this.checkKeywordFun()
+    },
 }
 
 </script>
